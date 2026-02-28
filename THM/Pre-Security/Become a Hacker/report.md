@@ -1,80 +1,86 @@
-Whats offensive security?
+# Offensive Security
 
+Offensive Security focuses on proactively testing systems by attempting to break into them, with a goal of identifying weaknesses before real attackers can exploit them.
 
-Offensive Security focuses on proactively testing systems by attempting to break into them, with  a goal of identifying weaknesses before real attackers can exploit them.
-
-
-Red Teaming:
+## Red Teaming:
 Ustrukturyzowana, autoryzowana metoda symulowanego ataku, której celem jest odwzorowanie działań rzeczywistego przeciwnika w celu przetestowania skuteczności mechanizmów obronnych oraz wykrycia podatności w określonym zakresie.
 
-Test penetracyjny (Penetration Test):
+## Test penetracyjny (Penetration Test):
 Ustrukturyzowana ocena bezpieczeństwa, w której uprawniony tester próbuje zidentyfikować i wykorzystać podatności w określonym zakresie, aby ocenić realny poziom ryzyka.
 
-Podatność (Vulnerability):
+## Podatność (Vulnerability):
 Słabość lub błąd w systemie, aplikacji albo konfiguracji, który może zostać wykorzystany przez atakującego.
 
-Eksploit (Exploit):
+## Eksploit (Exploit):
 Technika lub metoda wykorzystania podatności w celu osiągnięcia określonego rezultatu, na przykład uzyskania nieautoryzowanego dostępu do funkcji systemu lub danych.
 
-Zakres (Scope):
+## Zakres (Scope):
 Granice określające, co może być testowane w ramach danego zlecenia. Zakres definiuje, które systemy, aplikacje i działania są dozwolone, a które pozostają poza testem.
 
+---
 
+## Przykład: Testowanie strony www
 
-[Działanie]
+**URL:** http://www.onlineshop.thm/
 
-mamy strone web o url http://www.onlineshop.thm/
+Na początek sprawdzamy, czy strona posiada jakieś ciekawe podstrony. Możemy zrobić to ręcznie, sprawdzając:
 
-na poczatku sprawdzmy czy posiada jakies ciekawe podstrony,mozemy zrobic to na poczatku recznie dla podstawowych.
+- `/admin`
+- `/login`
+- `/register`
+- `/sitemap`
 
-/admin, /login, /register, /sitemap
+W tym przypadku znaleziono stronę `/login`. Sprawdzamy podstawowe hasła:
 
-w tym przypadku znaleziono strone /login, sprwadzmy podstawowe hasla - user: admin passwd: qwerty
+- **user:** admin
+- **passwd:** qwerty
 
-Automated Tools:
+### Narzędzia automatyczne:
 
-GoBuster - to narzędzie umożliwia nam automatyczne przskanowanie strony pod względem dostępnych podstron:
+#### GoBuster
 
+To narzędzie umożliwia nam automatyczne skanowanie strony pod względem dostępnych podstron:
+
+```bash
 gobuster dir --url http://www.onlineshop.thm/ -w /usr/share/wordlists/dirbuster/directory-list.txt
 
-dir
-Tryb enumeracji katalogów i plików, który próbuje odnaleźć ukryte katalogi oraz pliki na serwerze WWW.
+dir: Tryb enumeracji katalogów i plików, który próbuje odnaleźć ukryte katalogi oraz pliki na serwerze WWW
+.
 
---url http://www.onlineshop.thm/
-Określa docelową stronę internetową, którą Gobuster będzie skanował.
+--url http://www.onlineshop.thm/: Określa docelową stronę internetową, którą Gobuster będzie skanował.
 
--w /usr/share/wordlists/dirbuster/directory-list.txt
-Wskazuje listę słów (wordlist), której Gobuster użyje do odgadywania nazw katalogów i plików.
+-w /usr/share/wordlists/dirbuster/directory-list.txt: Wskazuje listę słów (wordlist), której Gobuster użyje do odgadywania nazw katalogów i plików.
 
+Eksploitacja słabości
 
+Aby zostać etycznym hackerem, musisz myśleć jak prawdziwy haker. Haker próbuje zrozumieć, czy dany produkt lub funkcjonalność działa w odpowiedni sposób i co można zrobić, jeśli tak nie jest.
 
+Kluczowe pytania do rozważenia:
 
-Eksploitacja slabosci
+Zadawaj pytania – nie zakładaj, że coś działa na pewno. Pomyśl: "Co jeśli coś nie działa tak, jak zaplanował autor i co mogę zyskać?"
 
-Aby zostac etycznym hackerem musisz myslec jak prawdziwy haker. Hacker probuje zrozumiec czy dany produkt czy funckjonalnosc dziala w odpowiedni sposob i co mozna zrobic jesli tak nie dziala.
+Testuj niespodziewane – spróbuj akcji, których odpowiedniej obsługi developer mógł nie zaimplementować.
 
-Tu kilka kluczowych pytań które można miec na uwadze podczas dalszej drogi.
+Łącz małe słabości – mała podatność może samotnie niewiele zmieniać, ale w połączeniu z innymi może stworzyć większe możliwości.
 
-1. Zadawaj pytania, nie zakladaj ze cos dziala na pewno. Pomyśl, "co jeśli coś nie działa tak jak zaplanował autora i co moge dzięki temu zyskać"
-2. Testuj niespodziewane: sprobuj akcji ktorych odpowiedniej obslugi developer mogl nie zaimplementowac.
-3. Łącz zę sobą małe słabości. Mała podatność może samotnie dużo nie zmieniać, ale w polaczeniu z innymi moze stworzyc wieksze mozliwosci
-4. Myśl jak przęstępca. "Jak cybeprzestepca podszedlby do tematu"
+Myśl jak przestępca – "Jak cyberprzestępca podszedłby do tematu?"
 
+Ważne cele:
+1. Sensitive functionality (Funkcjonalności wrażliwe)
 
-WAŻNE CELE:
-
-1.Sensitive functionality (Funkcjonalności wrażliwe)
 To części systemu, które wykonują krytyczne operacje, np. modyfikacja danych, dostęp do treści prywatnych, uruchamianie procesów systemowych.
+Jeśli atakujący uzyska dostęp do nich, może wyrządzić realne szkody.
 
-2.Jeśli atakujący uzyska do nich dostęp, może wyrządzić realne szkody.
-User data (Dane użytkowników)
+2. User data (Dane użytkowników)
 
-3.Informacje osobiste, np. imiona, e-maile, hasła, dane kont.
+Informacje osobiste, np. imiona, e-maile, hasła, dane kont.
 Mogą zostać wykradzione, sprzedane lub wykorzystane do dalszych ataków (np. phishing).
 
-4.Administrative features (Funkcje administracyjne)
+3. Administrative features (Funkcje administracyjne)
+
 Funkcje z wysokimi uprawnieniami, np. zarządzanie użytkownikami, zmiana konfiguracji, pełna kontrola nad aplikacją.
 Dostęp do nich daje atakującemu niemal pełną władzę nad systemem.
 
-5.Further attack opportunities (Dalsze możliwości ataku)
+4. Further attack opportunities (Dalsze możliwości ataku)
+
 Gdy atakujący uzyska autoryzowany dostęp, może wykorzystać inne luki w aplikacji, np. do eskalacji uprawnień, poruszania się w sieci wewnętrznej lub przejęcia kolejnych kont.
