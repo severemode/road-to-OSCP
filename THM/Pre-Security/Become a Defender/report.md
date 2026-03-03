@@ -1,3 +1,4 @@
+
 # Celem jest bycie przygotowanym na incydent i ewentualne przeciwdziałanie mu
 
 Aby skutecznie przeciwdziałać incydentom, konieczna jest znajomość działania możliwego ataku.
